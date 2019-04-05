@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.diegoveega.labo4.R
 import com.diegoveega.labo4.adapters.MovieAdapter
 import com.diegoveega.labo4.network.NetworkUtils
@@ -51,6 +52,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun addMovieToList(movie: Movie){
+        movieList.add(movie)
+        movieAdapter.changeList(movieList)
+        Log.d("Number", movieList.size.toString())
+    }
+
+    private fun movieItemClicked(item: Movie){
+
+    }
+
     private inner class FetchMovie : AsyncTask<String, Void, String>() {
 
         override fun doInBackground(vararg params: String?): String {
@@ -59,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
             val movieName = params[0]
 
-            val movieUrl = NetworkUtils().buildtSearchUrl(movieName)
+            val movieUrl = NetworkUtils().buildtSearchUrl(movieName.toString())
 
             return try {
                 NetworkUtils().getResponseFromHttpUrl(movieUrl)
@@ -70,13 +81,15 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(movieInfo: String?) {
             super.onPostExecute(movieInfo)
-            if(!movieInfo.isEmpty()){
-                val movieJson = JSONObject(movieInfo)
-                if (movieJson.getString("Response") == "True") {
-                    val movie = Gson().fromJson<Movie>(movieInfo, Movie::class.java)
-                    addMovieToList(movie)
-                } else {
-                    Snackbar.make(main_ll, "No existe la película en la base", Snackbar.LENGTH_SHORT).show()
+            if (movieInfo != null) {
+                if(!movieInfo.isEmpty()){
+                    val movieJson = JSONObject(movieInfo)
+                    if (movieJson.getString("Response") == "True") {
+                        val movie = Gson().fromJson<Movie>(movieInfo, Movie::class.java)
+                        addMovieToList(movie)
+                    } else {
+                        Snackbar.make(main_ll, "No existe la película en la base", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

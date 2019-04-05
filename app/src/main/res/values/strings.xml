@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Labo4</string>
+    <string name="movie_item_string">movie_title</string>
+    <string name="lorem_30_string">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.
+    </string>
+    <string name="runtime_ex_string">130min</string>
+    <string name="rate_ex_string">8.2</string>
+    <string name="movie_name_string">Movie Name</string>
+    <string name="n_a_value">N/A</string>
 </resources>
